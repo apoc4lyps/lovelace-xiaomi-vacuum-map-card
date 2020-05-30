@@ -310,7 +310,7 @@ class XiaomiVacuumMapCard extends LitElement {
                 }
             }
         } else if (this.mode === 4) {
-            const selectedSegment = this.getSelectedSegment();
+            const selectedSegment = this.getSelectedSegment(pos.x, pos.y);
             if (selectedSegment >= 0) {
                 if (this.selectedSegments.includes(selectedSegment)) {
                     this.selectedSegments.slice(this.selectedSegments.indexOf(selectedSegment), 1);
@@ -472,13 +472,9 @@ class XiaomiVacuumMapCard extends LitElement {
                 }
             }
         } else if (this.mode === 4) {
-            for (let i = 0; i < this._config.segments.length; i++) {
-                const segment = this._config.segments[i];
-                console.log(segment.name);
-                console.log(segment.x);
-                console.log(segment.y);
+            for (const segment of this._config.segments) {
                 const {x, y} = this.convertVacuumToMapCoordinates(segment.x, segment.y);
-                this.drawCircle(context, x, y, 4, 'yellow', 1);
+                this.drawCircle(context, x, y, 8, 'blue', 1);
             }
         }
         context.translate(-0.5, -0.5);
@@ -554,6 +550,19 @@ class XiaomiVacuumMapCard extends LitElement {
                     break;
                 }
             }
+        }
+        return selected;
+    }
+
+    getSelectedSegment(mx, my) {
+        let selected = -1;
+        for (let i = 0; i < this._config.segments.length && selected === -1; i++) {
+            const segment = this._config.segments[i];
+            const {x, y} = this.convertVacuumToMapCoordinates(segment.x, segment.y);
+            //if (mx >= x && my >= y && mx <= x + w && my <= y + h) {
+            //    selected = i;
+            //    break;
+            //}
         }
         return selected;
     }
