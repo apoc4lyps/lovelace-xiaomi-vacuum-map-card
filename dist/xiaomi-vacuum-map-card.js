@@ -472,8 +472,9 @@ class XiaomiVacuumMapCard extends LitElement {
                 }
             }
         } else if (this.mode === 4) {
+            console.log(this._config);
             for (let i = 0; i < this._config.segments.length; i++) {
-                const segment = this._config.zones[i];
+                const segment = this._config.segments[i];
                 this.drawCircle(context, segment.x, segment.y, 4, 'yellow', 1);
             }
         }
