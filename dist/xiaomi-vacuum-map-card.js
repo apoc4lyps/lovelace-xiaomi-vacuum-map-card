@@ -495,7 +495,7 @@ class XiaomiVacuumMapCard extends LitElement {
         context.beginPath();
         context.arc(x, y, r, 0, Math.PI * 2);
         context.strokeStyle = style;
-        context.lineWidth = lineWidth;
+        context.lineWidth = 1;
         context.fill();
         context.fillStyle = highlighted ? '#369de0' : '#046cd4';
         context.stroke();
