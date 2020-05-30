@@ -472,9 +472,14 @@ class XiaomiVacuumMapCard extends LitElement {
                 }
             }
         } else if (this.mode === 4) {
-            for (const segment of this._config.segments) {
+            for (let i = 0; i < this._config.segments.length; i++) {
+                const segment = this._config.segments[i];
                 const {x, y} = this.convertVacuumToMapCoordinates(segment.x, segment.y);
-                this.drawCircle(context, x, y, 8, 'blue', 1);
+                if (!this.selectedSegments.includes(i)) {
+                    this.drawCircle(context, x, y, 8, 'blue', 1);
+                } else {
+                    this.drawCircle(context, x, y, 8, 'red', 1);
+                }
             }
         }
         context.translate(-0.5, -0.5);
@@ -486,6 +491,10 @@ class XiaomiVacuumMapCard extends LitElement {
         context.strokeStyle = style;
         context.lineWidth = lineWidth;
         context.stroke();
+    }
+
+    drawMarker(context, x, y) {
+
     }
 
     drawDelete(context, x, y) {
