@@ -1,6 +1,7 @@
 const mode = "mode";
 const goToTarget = "goToTarget";
 const zonedCleanup = "zonedCleanup";
+const segments = "segments";
 const zones = "zones";
 const run = "run";
 const repeats = "repeats";
@@ -11,6 +12,7 @@ const texts = {
         mode: "Mode",
         goToTarget: "Go to target",
         zonedCleanup: "Zoned cleanup",
+        segments: "Segments",
         zones: "Zones",
         run: "Start",
         repeats: "Times:",
@@ -20,6 +22,7 @@ const texts = {
         mode: "Modus",
         goToTarget: "Gehe zum Zielpunkt",
         zonedCleanup: "Zonenreinigung",
+        segments: "Segments",
         zones: "Zonen",
         run: "Starten",
         repeats: "Wiederholungen:",
@@ -111,6 +114,7 @@ const texts = {
 export {
     mode,
     goToTarget,
+    segments,
     zonedCleanup,
     zones,
     run,
