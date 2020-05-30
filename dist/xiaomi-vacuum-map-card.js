@@ -309,7 +309,7 @@ class XiaomiVacuumMapCard extends LitElement {
                     }
                 }
             }
-        } else if (this.mode === 3) {
+        } else if (this.mode === 4) {
             const selectedSegment = this.getSelectedSegment();
             if (selectedSegment >= 0) {
                 if (this.selectedSegments.includes(selectedSegment)) {
