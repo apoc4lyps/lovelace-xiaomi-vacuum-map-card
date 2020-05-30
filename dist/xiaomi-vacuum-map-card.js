@@ -313,8 +313,10 @@ class XiaomiVacuumMapCard extends LitElement {
             const selectedSegment = this.getSelectedSegment(pos.x, pos.y);
             if (selectedSegment >= 0) {
                 if (this.selectedSegments.includes(selectedSegment)) {
+                    console.log("remove segment from list " + selectedSegment);
                     this.selectedSegments.slice(this.selectedSegments.indexOf(selectedSegment), 1);
                 } else {
+                    console.log("add segment to list " + selectedSegment)
                     this.selectedSegments.push(selectedSegment);
                 }
             }
@@ -475,11 +477,7 @@ class XiaomiVacuumMapCard extends LitElement {
             for (let i = 0; i < this._config.segments.length; i++) {
                 const segment = this._config.segments[i];
                 const {x, y} = this.convertVacuumToMapCoordinates(segment.x, segment.y);
-                if (!this.selectedSegments.includes(i)) {
-                    this.drawCircle(context, x, y, 8, 'blue', 1);
-                } else {
-                    this.drawCircle(context, x, y, 8, 'red', 1);
-                }
+                this.drawMarker(context, segment, this.selectedSegments.includes(i), 25, 25, 4);
             }
         }
         context.translate(-0.5, -0.5);
@@ -493,8 +491,23 @@ class XiaomiVacuumMapCard extends LitElement {
         context.stroke();
     }
 
-    drawMarker(context, x, y) {
+    drawMarker(context, segment, highlighted, width, height, radius) {
+        context.beginPath();
+        context.moveTo(radius, 0);
+        context.lineTo(width - radius, 0);
+        context.quadraticCurveTo(width, 0, width, radius);
+        context.lineTo(width, height - radius);
+        context.quadraticCurveTo(width, height, width - radius, height);
+        context.lineTo(radius, height);
+        context.quadraticCurveTo(0, height, 0, height - radius);
+        context.lineTo(0, radius);
+        context.quadraticCurveTo(0, 0, radius, 0);
+        context.closePath();
+        
+        context.fill();
+        context.fillStyle = highlighted ? '#369de0' : '#046cd4';
 
+        context.stroke();
     }
 
     drawDelete(context, x, y) {
@@ -568,10 +581,7 @@ class XiaomiVacuumMapCard extends LitElement {
         for (let i = 0; i < this._config.segments.length && selected === -1; i++) {
             const segment = this._config.segments[i];
             const {x, y} = this.convertVacuumToMapCoordinates(segment.x, segment.y);
-            console.log("Current X Pos: " + mx + " (Segment: " + x + ")");
-            console.log("Current Y Pos: " + my + " (Segment: " + y + ")");
             if (mx >= x - 5 && my >= y - 5 && mx <= x + 5 && my <= y + 5) {
-                console.log("matched segment found " + segment.name);
                 selected = i;
                 break;
             }
