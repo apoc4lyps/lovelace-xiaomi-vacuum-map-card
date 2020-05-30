@@ -477,7 +477,7 @@ class XiaomiVacuumMapCard extends LitElement {
             for (let i = 0; i < this._config.segments.length; i++) {
                 const segment = this._config.segments[i];
                 const {x, y} = this.convertVacuumToMapCoordinates(segment.x, segment.y);
-                this.drawMarker(context, segment, this.selectedSegments.includes(i), 25, 25, 4);
+                this.drawMarker(context, segment, this.selectedSegments.includes(i), x, y, 8);
             }
         }
         context.translate(-0.5, -0.5);
@@ -491,22 +491,13 @@ class XiaomiVacuumMapCard extends LitElement {
         context.stroke();
     }
 
-    drawMarker(context, segment, highlighted, width, height, radius) {
+    drawMarker(context, segment, highlighted, x, y, r) {
         context.beginPath();
-        context.moveTo(radius, 0);
-        context.lineTo(width - radius, 0);
-        context.quadraticCurveTo(width, 0, width, radius);
-        context.lineTo(width, height - radius);
-        context.quadraticCurveTo(width, height, width - radius, height);
-        context.lineTo(radius, height);
-        context.quadraticCurveTo(0, height, 0, height - radius);
-        context.lineTo(0, radius);
-        context.quadraticCurveTo(0, 0, radius, 0);
-        context.closePath();
-        
+        context.arc(x, y, r, 0, Math.PI * 2);
+        context.strokeStyle = style;
+        context.lineWidth = lineWidth;
         context.fill();
         context.fillStyle = highlighted ? '#369de0' : '#046cd4';
-
         context.stroke();
     }
 
