@@ -559,10 +559,13 @@ class XiaomiVacuumMapCard extends LitElement {
         for (let i = 0; i < this._config.segments.length && selected === -1; i++) {
             const segment = this._config.segments[i];
             const {x, y} = this.convertVacuumToMapCoordinates(segment.x, segment.y);
-            //if (mx >= x && my >= y && mx <= x + w && my <= y + h) {
-            //    selected = i;
-            //    break;
-            //}
+            console.log("Current X Pos: " + mx + " (Segment: " + x + ")");
+            console.log("Current Y Pos: " + my + " (Segment: " + y + ")");
+            if (mx >= x - 50 && my >= y - 50 && mx <= x + 50 && my <= y + 50) {
+                console.log("matched segment found " + segment.name);
+                selected = i;
+                break;
+            }
         }
         return selected;
     }
